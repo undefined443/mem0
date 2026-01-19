@@ -13,7 +13,9 @@ wheels/
 uv.lock
 
 # Misc
-.claude
+.claude/
+.ruff_cache/
+.vscode/
 
 # Vector database
 vector_db/
