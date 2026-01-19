@@ -1,7 +1,11 @@
 import os
+import gc
 from dotenv import load_dotenv
+
+# Force use official Hugging Face API
+os.environ["HF_ENDPOINT"] = "https://huggingface.co"
+
 from mem0 import Memory
-import time
 
 load_dotenv()
 
@@ -16,16 +20,15 @@ config = {
         }
     },
     "embedder": {
-        "provider": "openai",
+        "provider": "huggingface",
         "config": {
-            "model": "text-embedding-3-small",
-            "api_key": os.getenv("OPENAI_API_KEY"),
+            "model": "BAAI/bge-large-en-v1.5",
         }
     },
     "vector_store": {
         "provider": "qdrant",
         "config": {
-            "embedding_model_dims": 1536
+            "embedding_model_dims": 1024
         }
     }
 }
@@ -46,3 +49,8 @@ query = "What dietary restrictions does Alex have?"
 result = client.search(query, user_id="alex")
 print(f"\nQuery: {query}")
 print(f"Result: {result}")
+
+# Clean up to avoid shutdown warning
+client.vector_store.client.close()
+del client
+gc.collect()

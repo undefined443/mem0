@@ -11,3 +11,6 @@ wheels/
 .env
 .python-version
 uv.lock
+
+# Misc
+.claude
