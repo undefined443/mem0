@@ -28,7 +28,9 @@ config = {
     "vector_store": {
         "provider": "qdrant",
         "config": {
-            "embedding_model_dims": 1024
+            "embedding_model_dims": 1024,
+            "path": "./vector_db",
+            "on_disk": True
         }
     }
 }
